@@ -40,7 +40,7 @@ public class Main {
         System.out.println();
 
         /************* мне захотелось попробовать найденные в интернете другие методы *************/
-        
+
         //с помощью unsafe
         try {
             //получение экземпляра unsafe
@@ -104,6 +104,18 @@ public class Main {
         } catch (NoSuchFieldException | InvocationTargetException |
                  NoSuchMethodException | InstantiationException |
                  IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println();
+
+        //клонирование
+        try {
+            SingletonDog dog5 = (SingletonDog) originalDog.clone();
+
+            System.out.println("originalDog == dog5: " + (originalDog == dog5));
+
+        } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
     }

@@ -7,7 +7,7 @@ import java.io.Serializable;
  *
  **/
 
-public class SingletonDog extends Animal implements Serializable {
+public class SingletonDog extends Animal implements Serializable, Cloneable {
     private static SingletonDog instance;
 
     private SingletonDog(String name) {
@@ -35,5 +35,10 @@ public class SingletonDog extends Animal implements Serializable {
         } else {
             System.out.println(name + " не хочет есть \"" + food + "\"");
         }
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }
