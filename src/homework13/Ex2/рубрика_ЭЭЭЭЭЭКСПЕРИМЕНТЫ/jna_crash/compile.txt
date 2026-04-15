@@ -1,0 +1,14 @@
+@echo off
+set JNA_JAR=jna-5.18.1.jar
+
+echo === Compiling... ===
+javac -cp "%JNA_JAR%;." JNACrash.java
+
+if %errorlevel% equ 0 (
+    echo === Running... ===
+    java -cp "%JNA_JAR%;." JNACrash
+) else (
+    echo Compilation failed!
+)
+
+pause

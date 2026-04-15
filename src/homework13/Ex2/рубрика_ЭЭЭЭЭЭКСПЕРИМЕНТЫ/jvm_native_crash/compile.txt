@@ -1,0 +1,38 @@
+@echo off
+
+:: !!! ИЗМЕНИТЕ ЭТУ ПЕРЕМЕННУЮ НА ПУТЬ К ВАШЕМУ JDK !!!
+set "JAVA_HOME=C:\Program Files\Java\jdk-17" 
+
+echo === Step 1: Java file compiling and header file generation ===
+:: Компилируем Java-файл и генерируем .h файл в текущей папке
+javac -h . NativeCrash.java
+if %errorlevel% neq 0 goto :error
+
+echo === Step 2: Compiling native code into DLL ===
+:: Компилируем jvm_crash.c в библиотеку jvmcrash.dll
+:: -I"%JAVA_HOME%\include" - путь к папке с jni.h
+:: -I"%JAVA_HOME%\include\win32" - путь к папке с jni_md.h
+gcc -shared -o jvmcrash.dll jvm_crash.c ^
+    -I"%JAVA_HOME%\include" ^
+    -I"%JAVA_HOME%\include\win32"
+if %errorlevel% neq 0 goto :error
+
+echo.
+echo ========================================
+echo === jvmcrash.dll created ===
+echo ========================================
+echo.
+echo === Step 3: Run java program ===
+:: Запускаем Java, указывая текущую папку в качестве java.library.path
+java -Djava.library.path=. NativeCrash
+
+goto :end
+
+:error
+echo.
+echo === Error. Something went wrong... ===
+pause
+
+:end
+
+pause
