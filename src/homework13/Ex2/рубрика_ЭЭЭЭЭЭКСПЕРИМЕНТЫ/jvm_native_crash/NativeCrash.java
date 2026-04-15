@@ -46,15 +46,6 @@ public class NativeCrash {
         System.out.println("ACHTUNG! JVM will crash");
         System.out.println("Run each example individually\n");
 
-        // Раскомментируйте по одному для тестирования:
-
-        // testFinallyNotExecuted(() -> nativeCrash.crashBySegfault(), "Segmentation Fault");
-        // testFinallyNotExecuted(() -> nativeCrash.crashByDivZero(), "Division by Zero");
-        // testFinallyNotExecuted(() -> nativeCrash.crashByAbort(), "Abort()");
-        // testFinallyNotExecuted(() -> nativeCrash.crashByStackOverflow(), "Stack Overflow");
-        // testFinallyNotExecuted(() -> nativeCrash.crashByStackCorruption(), "Stack Corruption");
-        // testFinallyNotExecuted(() -> nativeCrash.crashByIllegalInstruction(), "Illegal Instruction");
-
         System.out.println("Choose one for demo:");
         System.out.println("1 - Segmentation Fault");
         System.out.println("2 - Division by Zero");
