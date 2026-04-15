@@ -4,33 +4,33 @@
 #include <string.h>
 #include <signal.h>
 
-// Способ 1: Вызов segmentation fault (доступ к нулевому указателю)
+// РЎРїРѕСЃРѕР± 1: Р’С‹Р·РѕРІ segmentation fault (РґРѕСЃС‚СѓРї Рє РЅСѓР»РµРІРѕРјСѓ СѓРєР°Р·Р°С‚РµР»СЋ)
 JNIEXPORT void JNICALL Java_NativeCrash_crashBySegfault(JNIEnv *env, jobject obj) {
     printf("C: Calling segmentation fault...\n");
     int *ptr = NULL;
-    *ptr = 42; // Попытка записи в нулевой адрес -> SIGSEGV
+    *ptr = 42; // РџРѕРїС‹С‚РєР° Р·Р°РїРёСЃРё РІ РЅСѓР»РµРІРѕР№ Р°РґСЂРµСЃ -> SIGSEGV
 }
 
-// Способ 2: Деление на ноль (обычно SIGFPE)
+// РЎРїРѕСЃРѕР± 2: Р”РµР»РµРЅРёРµ РЅР° РЅРѕР»СЊ (РѕР±С‹С‡РЅРѕ SIGFPE)
 JNIEXPORT void JNICALL Java_NativeCrash_crashByDivZero(JNIEnv *env, jobject obj) {
     printf("C: Divided by zero...\n");
     int a = 10;
     int b = 0;
-    int c = a / b; // Деление на ноль
-    printf("Результат: %d\n", c); // Эта строка не выполнится
+    int c = a / b; // Р”РµР»РµРЅРёРµ РЅР° РЅРѕР»СЊ
+    printf("ГђГҐГ§ГіГ«ГјГІГ ГІ: %d\n", c); // Р­С‚Р° СЃС‚СЂРѕРєР° РЅРµ РІС‹РїРѕР»РЅРёС‚СЃСЏ
 }
 
-// Способ 3: Вызов abort() - аварийное завершение
+// РЎРїРѕСЃРѕР± 3: Р’С‹Р·РѕРІ abort() - Р°РІР°СЂРёР№РЅРѕРµ Р·Р°РІРµСЂС€РµРЅРёРµ
 JNIEXPORT void JNICALL Java_NativeCrash_crashByAbort(JNIEnv *env, jobject obj) {
     printf("C: Calling abort()...\n");
-    abort(); // Посылает сигнал SIGABRT
+    abort(); // РџРѕСЃС‹Р»Р°РµС‚ СЃРёРіРЅР°Р» SIGABRT
 }
 
-// Способ 4: Переполнение стека (рекурсия)
+// РЎРїРѕСЃРѕР± 4: РџРµСЂРµРїРѕР»РЅРµРЅРёРµ СЃС‚РµРєР° (СЂРµРєСѓСЂСЃРёСЏ)
 void recursive_function(int depth) {
-    char buffer[1024]; // Занимаем место в стеке
+    char buffer[1024]; // Р—Р°РЅРёРјР°РµРј РјРµСЃС‚Рѕ РІ СЃС‚РµРєРµ
     printf("Depth: %d\n", depth);
-    recursive_function(depth + 1); // Бесконечная рекурсия
+    recursive_function(depth + 1); // Р‘РµСЃРєРѕРЅРµС‡РЅР°СЏ СЂРµРєСѓСЂСЃРёСЏ
 }
 
 JNIEXPORT void JNICALL Java_NativeCrash_crashByStackOverflow(JNIEnv *env, jobject obj) {
@@ -38,18 +38,18 @@ JNIEXPORT void JNICALL Java_NativeCrash_crashByStackOverflow(JNIEnv *env, jobjec
     recursive_function(1);
 }
 
-// Способ 5: Повреждение стека через memcpy
+// РЎРїРѕСЃРѕР± 5: РџРѕРІСЂРµР¶РґРµРЅРёРµ СЃС‚РµРєР° С‡РµСЂРµР· memcpy
 JNIEXPORT void JNICALL Java_NativeCrash_crashByStackCorruption(JNIEnv *env, jobject obj) {
     printf("C: Stack corruption...\n");
     char buffer[10];
-    // Записываем за пределы буфера, повреждая стек
+    // Р—Р°РїРёСЃС‹РІР°РµРј Р·Р° РїСЂРµРґРµР»С‹ Р±СѓС„РµСЂР°, РїРѕРІСЂРµР¶РґР°СЏ СЃС‚РµРє
     memcpy(buffer, "This string is definitely longer than 10 bytes and will corrupt the stack", 70);
 }
 
-// Способ 6: Вызов illegal instruction
+// РЎРїРѕСЃРѕР± 6: Р’С‹Р·РѕРІ illegal instruction
 JNIEXPORT void JNICALL Java_NativeCrash_crashByIllegalInstruction(JNIEnv *env, jobject obj) {
     printf("C: Invoke illegal instruction...\n");
-    // Функция-указатель на неверный адрес
+    // Р¤СѓРЅРєС†РёСЏ-СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РЅРµРІРµСЂРЅС‹Р№ Р°РґСЂРµСЃ
     void (*illegal_func)() = (void (*)())0x12345678;
-    illegal_func(); // Попытка выполнить код по неверному адресу
+    illegal_func(); // РџРѕРїС‹С‚РєР° РІС‹РїРѕР»РЅРёС‚СЊ РєРѕРґ РїРѕ РЅРµРІРµСЂРЅРѕРјСѓ Р°РґСЂРµСЃСѓ
 }
