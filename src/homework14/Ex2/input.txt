@@ -1,0 +1,9 @@
+docnum1234567890
+contract9876543210
+docnum12345
+contractABC123D
+invalid12345678
+docnum123456789
+contract1234567
+docnumSPECIAL@1
+contract 123456
