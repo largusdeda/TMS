@@ -28,7 +28,7 @@ public class Main {
                 content.append(line).append(" ");
             }
         } catch (IOException e) {
-            e.printStackTrace();;
+            e.printStackTrace();
         }
 
         Matcher matcher = Pattern.compile(PATTERN).matcher(content.toString());
