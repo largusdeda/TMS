@@ -23,8 +23,8 @@ public class Main {
 
             // for-each loop
             System.out.println("\n--- for-each loop:");
-            for (String friut : list) {
-                System.out.println("Fruit: " + friut);
+            for (String fruit : list) {
+                System.out.println("Fruit: " + fruit);
             }
 
             // iterator
