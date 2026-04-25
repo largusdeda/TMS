@@ -48,12 +48,14 @@ public class CustomArrayList<T> implements Iterable<T> {
     }
 
     // Получение элемента по индексу
+    @SuppressWarnings("unchecked")
     public T get(int index) {
         checkIndex(index);
         return (T) elements[index];
     }
 
     // Удаление элемента по индексу
+    @SuppressWarnings("unchecked")
     public T remove(int index) {
         checkIndex(index);
         T removedElement = (T) elements[index];
@@ -100,6 +102,7 @@ public class CustomArrayList<T> implements Iterable<T> {
     }
 
     // Замена элемента по индексу
+    @SuppressWarnings("unchecked")
     public T set(int index, T element) {
         checkIndex(index);
         T oldElement = (T) elements[index];
@@ -135,6 +138,7 @@ public class CustomArrayList<T> implements Iterable<T> {
     }
 
     // Преобразование в массив
+    @SuppressWarnings("unchecked")
     public T[] toArray() {
         return (T[]) Arrays.copyOf(elements, size, Object[].class);
     }
@@ -155,6 +159,7 @@ public class CustomArrayList<T> implements Iterable<T> {
         }
 
         @Override
+        @SuppressWarnings("unchecked")
         public T next() {
             if (!hasNext())
                 throw new NoSuchElementException("No more elements in the collection");
@@ -175,6 +180,7 @@ public class CustomArrayList<T> implements Iterable<T> {
         }
 
         @Override
+        @SuppressWarnings("unchecked")
         public void forEachRemaining(Consumer<? super T> action) {
             if (action == null)
                 throw new NullPointerException("Action  cannot be null");
@@ -189,6 +195,7 @@ public class CustomArrayList<T> implements Iterable<T> {
 
     // Метод forEach
     @Override
+    @SuppressWarnings("unchecked")
     public void forEach(Consumer<? super T> action) {
         if (action == null)
             throw new NullPointerException("Action  cannot be null");
